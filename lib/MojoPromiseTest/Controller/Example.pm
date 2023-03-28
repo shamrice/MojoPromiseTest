@@ -16,8 +16,6 @@ sub promise {
 
   my $param = $self->param('query');
 
-  my $results = [];
-  my $errors = [];
   my $promise = &_test_async($param)->then(
       sub {
         $self->log->info("Success callback: @_");
@@ -31,8 +29,8 @@ sub promise {
   );
 
   # have default blank values. Will be filled once promise resolves/rejects.
-  $self->stash('results' => $results, 'errors' => $errors);
-  $self->log->info("********** EXIT SUB promise: results=$results : errors=$errors **********");
+  $self->stash('results' => [], 'errors' => []);
+  $self->log->info("********** EXIT SUB promise: **********");
 
   return $promise;
 }
