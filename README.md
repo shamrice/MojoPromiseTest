@@ -8,3 +8,8 @@ All relevant testing code can be found in [/lib/MojoPromiseTest/Controller/Examp
 
 I have no idea if the way I went about doing this is considered best or even worst practices. It seems 
 to work though. :) 
+
+## Related Documentation
+[Mojo::Promise Documentation](https://docs.mojolicious.org/Mojo/Promise)
+[Async / Await Documentation](https://metacpan.org/dist/Mojolicious/view/lib/Mojolicious/Guides/Cookbook.pod#async/await)
+
