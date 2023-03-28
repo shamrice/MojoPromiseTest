@@ -114,6 +114,7 @@ async sub _test_async {
   die "In test_async :: Empty parameter value" if (!length $param);
   say "In test_async :: In test_async with param: $param";
 
+  my @result = ($param);
   # This is some extra URL calls pulled async to give the sub something to do so
   # not to return instantly which can lead to a false sense of things working
   # when they're not.
@@ -124,10 +125,12 @@ async sub _test_async {
 
   for my $url (@urls) {
     my $tx = await $ua->get_p($url);
-    say $tx->result->json('/hits/hits/0/_source/release');
+    my $found = $tx->result->json('/hits/hits/0/_source/release');
+    say "In test_async :: Found CPAN module: $found";
+    push(@result, $found);
   }
 
-  return $param;
+  return join(", ", @result);
 }
 
 
