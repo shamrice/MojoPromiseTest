@@ -10,7 +10,6 @@ I have no idea if the way I went about doing this is considered best or even wor
 to work though. :) 
 
 ## Related Documentation
-[Mojo::Promise Documentation](https://docs.mojolicious.org/Mojo/Promise)
-
-[Async / Await Documentation](https://metacpan.org/dist/Mojolicious/view/lib/Mojolicious/Guides/Cookbook.pod#async/await)
+* [Mojo::Promise Documentation](https://docs.mojolicious.org/Mojo/Promise)
+* [Async / Await Documentation](https://metacpan.org/dist/Mojolicious/view/lib/Mojolicious/Guides/Cookbook.pod#async/await)
 
