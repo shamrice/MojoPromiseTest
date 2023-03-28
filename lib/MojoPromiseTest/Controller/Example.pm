@@ -1,7 +1,8 @@
 package MojoPromiseTest::Controller::Example;
 use Mojo::Base 'Mojolicious::Controller', -signatures, -async_await;;
 use Mojo::Promise;
-
+use Mojo::URL;
+use Mojo::UserAgent;
 
 sub welcome ($self) {
   $self->render;
@@ -17,18 +18,23 @@ sub promise {
 
   my $results = [];
   my $errors = [];
-  my $promise = &_test_async($param);
+  my $promise = &_test_async($param)->then(
+      sub {
+        say "then: @_";
+        $self->stash('results' => \@_);
+        $self->render;},
+      sub {
+        say "catch: @_";
+        $self->stash('errors' => \@_);
+        $self->render;
+      }
+  );
 
-  if ($promise->{status} eq 'resolve') {
-    $results = $promise->{results};
-  } else {
-    $errors = $promise->{results};
-  }
-
+  # have default blank values. Will be filled once promise resolves/rejects.
   $self->stash('results' => $results, 'errors' => $errors);
   $self->log->info("********** EXIT SUB promise: results=$results : errors=$errors **********");
 
-  return $self->render;
+  return $promise;
 }
 
 
@@ -109,6 +115,20 @@ async sub _test_async {
   $param //= die "In test_async :: Missing param";
   die "In test_async :: Empty parameter value" if (!length $param);
   say "In test_async :: In test_async with param: $param";
+
+  # This is some extra URL calls pulled async to give the sub something to do so
+  # not to return instantly which can lead to a false sense of things working
+  # when they're not.
+  my $terms = ['mojo', 'minion', 'text', 'log'];
+  my $cpan = Mojo::URL->new('http://fastapi.metacpan.org/v1/module/_search');
+  my @urls = map { $cpan->clone->query(q => $_) } @$terms;
+  my $ua = Mojo::UserAgent->new;
+
+  for my $url (@urls) {
+    my $tx = await $ua->get_p($url);
+    say $tx->result->json('/hits/hits/0/_source/release');
+  }
+
   return $param;
 }
 
