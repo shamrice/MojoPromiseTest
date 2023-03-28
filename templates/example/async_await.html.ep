@@ -1,0 +1,27 @@
+% layout 'default';
+% title 'Async await Test';
+<h2>Async / Await Test</h2>
+<div>
+    <h3>Results:</h3>
+    <table>
+        % foreach my $result (stash('results')->@*) {
+            <tr>
+                <td><%= $result %></td>
+            </tr>
+        % }
+   </table>
+</div>
+<div>
+    <h3>Errors:</h3>
+    <table>
+        % foreach my $error (stash('errors')->@*) {
+            <tr>
+                <td><%= $error %></td>
+            </tr>
+        % }
+   </table>
+</div>
+
+<p>
+  <%= link_to 'Reload Page' => url_for %> | <%= link_to 'Back to home' => '/' %>
+</p>

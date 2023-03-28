@@ -1,0 +1,18 @@
+% layout 'default';
+% title 'Mojo::Promise Tests';
+<h2>Mojo::Promise Tests</h2>
+<hr>
+<p>
+    See /lib/MojoPromiseTest/Controller/Example.pm for code behind each link below.
+</p>
+<hr>
+<p>
+    <%= link_to 'Promise test' => '/promise' %>
+</p>
+<p>
+    <%= link_to 'Async Await test' => '/async_await' %>
+</p>
+<p>
+    <%= link_to ' All Settled Async Await test' => '/async_await_all_settled' %>
+</p>
+

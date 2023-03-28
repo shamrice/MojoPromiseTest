@@ -1,0 +1,36 @@
+% layout 'default';
+% title 'Promise Test';
+<h2>Promise Test</h2>
+<div>
+    <p>
+        Send value to promise parameter:
+    </p>
+    <form method="get" action="/promise" name="query_form">
+        <input name="query" type="text">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+<div>
+    <h3>Results:</h3>
+    <table>
+        % foreach my $result (stash('results')->@*) {
+            <tr>
+                <td><%= $result %></td>
+            </tr>
+        % }
+   </table>
+</div>
+<div>
+    <h3>Errors:</h3>
+    <table>
+        % foreach my $error (stash('errors')->@*) {
+            <tr>
+                <td><%= $error %></td>
+            </tr>
+        % }
+   </table>
+</div>
+
+<p>
+  <%= link_to 'Reload Page' => url_for %> | <%= link_to 'Back to home' => '/' %>
+</p>
