@@ -20,11 +20,11 @@ sub promise {
   my $errors = [];
   my $promise = &_test_async($param)->then(
       sub {
-        say "then: @_";
+        $self->log->info("Success callback: @_");
         $self->stash('results' => \@_);
         $self->render;},
       sub {
-        say "catch: @_";
+        $self->log->error("Error callback: @_");
         $self->stash('errors' => \@_);
         $self->render;
       }
